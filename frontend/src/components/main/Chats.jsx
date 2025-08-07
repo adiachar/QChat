@@ -13,8 +13,15 @@ export default function Chats() {
   const [lastMessage, setLastMessage] = useState("");
   const isNewThread = useRef(true);
   const lastMsgRef = useRef(null);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
+
+    //if the user changes the threadId while previous interval is happenning, below code will clear that interval.
+    if(intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
     let allMessages = threads[threadId].messages;
     let n = allMessages.length;
 
@@ -41,16 +48,16 @@ export default function Chats() {
       let wordsArr = allMessages[n - 1].content.split(" ");
       let idx = 0;
 
-      let interval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         setLastMessage(wordsArr.slice(0, idx).join(" "));   
         idx++;
         if(idx == wordsArr.length + 1) {
-          clearInterval(interval);
+          clearInterval(intervalRef.current);
         }
-      }, 100);
+      }, 60);
 
     } else {
-      console.log(isNewThread.current);
+
       isNewThread.current = false;
     }
 
@@ -62,7 +69,7 @@ export default function Chats() {
   }, [lastMessage, messages, threadId]);
 
   return (
-    <div className='w-full h-10/12 p-4 overflow-y-auto text-gray-300 text-lg'>
+    <div className='w-full h-9/12 p-4 lg:pl-20 lg:pr-20 overflow-y-auto text-gray-300 text-lg'>
       {
         messages.map((obj, idx) => (
           obj.role == "user" ?
@@ -97,7 +104,7 @@ export default function Chats() {
         ))
       }
       {lastMessage ?
-        <div ref={lastMsgRef} className='w-full mb-10 lg:pl-10 flex flex-col'>
+        <div className='w-full mb-10 lg:pl-10 flex flex-col'>
           <ReactMarkdown
             remarkPlugins={[remarkGmf]}
             rehypePlugins={[rehypeRaw, rehypeHighlight]}
@@ -120,9 +127,12 @@ export default function Chats() {
             }}
           >{lastMessage}</ReactMarkdown>
         </div> :
-        <div ref={lastMsgRef} className='loading lg:ml-10'>
+        <div className='loading lg:ml-10'>
 
         </div>}
+        <div ref={lastMsgRef}>
+
+        </div>
     </div>
   )
 }

@@ -48,7 +48,7 @@ export default function SignUp() {
     });
     
     return (
-        <div className="lg:h-4/5 w-4/5 mx-auto mt-20 lg:mt-2 p-4 gap-3 flex items-start bg-white  rounded-xl">
+        <div className="lg:h-4/5 w-10/12 mx-auto mt-20 lg:mt-2 p-4 gap-3 flex items-start bg-white  rounded-xl">
             <div 
                 style={{background: "linear-gradient(190deg, #0d011a 30%, #3e0480, #6c39cb, #b394f5)"}}
                 className="h-full w-10/12 rounded-xl hidden lg:flex lg:items-center">
@@ -105,11 +105,11 @@ export default function SignUp() {
                             loading={isSubmited} 
                             type='submit' 
                             variant='contained' 
-                            style={{backgroundColor: "#6a00ff", fontSize: "1rem", textTransform: "lowercase", marginTop: "0.5rem", padding: "0.3rem 1rem", borderRadius: "0.5rem"}}                            className="self-center"
+                            style={{backgroundColor: "#6a00ff", fontSize: "1rem", textTransform: "lowercase", marginTop: "0.5rem", padding: "0.3rem 1rem", borderRadius: "0.5rem", boxShadow: "none"}}                            className="self-center"
                             >sign up</Button>
                     </form>
-                    <p className="text-red-600">{errMsg}</p>
-                    <p className="text-sm font-medium text-gray-500 mt-6">Don't have an Account ? <Link to={"/sign-in"} className="font-medium underline" style={{color: "rgba(0, 0, 200, 0.5)"}}>Click here to sign in</Link></p>                 
+                    <p className="text-red-600 text-center">{errMsg}</p>
+                    <p className="text-sm font-medium text-gray-500 mt-6 text-center">Have an Account ? <Link to={"/sign-in"} className="font-medium underline" style={{color: "rgba(0, 0, 200, 0.5)"}}>Click here to sign in</Link></p>                 
                 </div>
             </div>
         </div>

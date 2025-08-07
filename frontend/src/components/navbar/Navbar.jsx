@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {useSelector} from "react-redux";
+import { setSelectedModel } from '../../app/features';
 import PersonIcon from '@mui/icons-material/Person';
 import Fab from '@mui/material/Fab';
 import {Button} from "@mui/material";
@@ -10,6 +11,7 @@ export default function Navbar({setShowThread, setSignIn}) {
     const navigate = useNavigate();
     const count = useSelector(state => state.count);
     const isLoggedIn = useSelector(state => state.isLoggedIn);
+    const models = useSelector(state => state.models);
 
     return (
         <div 
@@ -33,7 +35,7 @@ export default function Navbar({setShowThread, setSignIn}) {
                 </div>            
             </div>
 
-            <ul className="">
+            <ul className="flex items-center">
                 {isLoggedIn ?
                     <li>
                         <Fab className="" size='small'>

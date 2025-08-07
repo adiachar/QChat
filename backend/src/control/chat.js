@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
 import Thread from "../model/thread.js";
 import User from "../model/user.js";
-import {getOpenAiResponse} from "../utils/openAi.js";
+import { getAiResponse } from "../utils/ai.js";
+import {models} from "../utils/models.js";
 
 export const addChat = async (req, res) => {
     const user = req.user;
-    const {threadId, message, instruction} = req.body; 
+    const {threadId, message, instruction, model} = req.body; 
 
     let thread = await Thread.findById(threadId);
     
@@ -23,7 +23,10 @@ export const addChat = async (req, res) => {
             content: message
         });
     }
-    const aiResponse = await getOpenAiResponse(thread.messages, instruction);
+
+    let messages = thread.messages.map(({role, content}) => ({role, content}));
+    
+    const aiResponse = await getAiResponse(messages, instruction, model);
     
     thread.messages.push({
         role: "assistant",
@@ -61,4 +64,8 @@ export const deleteThreadById = async (req, res) => {
     const {thread_id} = req.params;
     const response = await Thread.findByIdAndDelete(thread_id);
     return res.status(200).json({msg: "Thread Deleted!"});
+}
+
+export const getModels = async (req, res) => {
+    return res.status(200).json({models: models});
 }
