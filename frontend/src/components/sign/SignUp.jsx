@@ -31,7 +31,7 @@ export default function SignUp() {
 
             try {
                 setIsSubmited(true);
-                const res = await axios.post("http://localhost:5000/user/sign-up", values);
+                const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/sign-up`, values);
                 if(res.status == 200) {
                     const token = res.data.token;
                     localStorage.setItem("token", token);  

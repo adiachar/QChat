@@ -21,7 +21,7 @@ export default function Sign() {
         onSubmit: async (values) => {
             try {
                 setIsSubmited(true);
-                const res = await axios.post("http://localhost:5000/user/sign-in", values);
+                const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/sign-in`, values);
                 if(res.status == 200) {
                     const {token} = res.data;
                     localStorage.setItem("token", token); 
