@@ -34,6 +34,7 @@ export default function Input({setShowInstructions}) {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/chat`, {threadId, message, instruction: instructions[selectedInstructionIdx]}, {headers});
       if(response.status == 200) {
+        setMessage("");
         const message = response.data;
         dispatch(updateThread({threadId: threadId, message: message}));
       }
