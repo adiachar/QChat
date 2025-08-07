@@ -48,7 +48,7 @@ export default function SignUp() {
     });
     
     return (
-        <div className="h-4/5 w-4/5 p-4 gap-3 flex items-start bg-white  rounded-xl">
+        <div className="lg:h-4/5 w-4/5 mx-auto mt-20 lg:mt-2 p-4 gap-3 flex items-start bg-white  rounded-xl">
             <div 
                 style={{background: "linear-gradient(190deg, #0d011a 30%, #3e0480, #6c39cb, #b394f5)"}}
                 className="h-full w-10/12 rounded-xl hidden lg:flex lg:items-center">
@@ -60,7 +60,7 @@ export default function SignUp() {
                 <div className="mb-2 font-bold text-3xl text-gray-700">
                 <h1 className="text-center mb-2 font-bold text-3xl text-gray-700">Sign up to <span className="text-indigo-800">QChat</span></h1>                    
                 <p className="font-medium mb-4 text-center text-gray-500 text-sm">Please enter your sign up details to create a new account.</p>
-                    <form onSubmit={formik.handleSubmit} className="w-full px-2 flex flex-col text-base font-medium text-gray-700">
+                    <form onSubmit={formik.handleSubmit} className="w-full mt-10 px-2 flex flex-col text-base font-medium text-gray-700">
                         <label htmlFor="">
                             <input 
                                 className="w-full my-2 p-2 ps-4 text-base border-1 border-gray-400 focus:outline-indigo-800 rounded-md"

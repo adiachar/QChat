@@ -32,7 +32,7 @@ export default function Input({setShowInstructions}) {
 
     dispatch(updateThread({threadId: threadId, message: {role: "user", content: message}}));
     try {
-      const response = await axios.post("http://localhost:5000/chat", {threadId, message, instruction: instructions[selectedInstructionIdx]}, {headers});
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/chat`, {threadId, message, instruction: instructions[selectedInstructionIdx]}, {headers});
       if(response.status == 200) {
         const message = response.data;
         dispatch(updateThread({threadId: threadId, message: message}));
@@ -44,7 +44,7 @@ export default function Input({setShowInstructions}) {
 
   return (
     <div className='h-2/12 px-4 pt-4 flex justify-center items-start'>
-      <div 
+      <div
         className="w-full lg:w-1/2 p-2 rounded-xl border-2 border-gray-400 flex"
         style={{backgroundColor: "#0a0b30"}}>
         <input

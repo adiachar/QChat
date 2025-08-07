@@ -12,21 +12,39 @@
     width: 0px;
 }
 
-.loading {
+.loading, .loadingRed {
     height: 30px;
     width: 30px;
     border-radius: 50%;
     border-top: 3px solid white;
-    animation-name: loading;
     animation-duration: 1.5s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
+}
+
+.loading {
+    animation-name: loading;
+}
+
+.loadingRed {
+    animation-name: loadingRed;
+
 }
 
 @keyframes loading {
     50% {
         transform: rotate(90deg);
         background-color: rgb(121, 0, 207);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loadingRed {
+    50% {
+        transform: rotate(90deg);
+        background-color: rgb(242, 58, 2);
     }
     100% {
         transform: rotate(360deg);

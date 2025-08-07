@@ -12,10 +12,10 @@ import Instruction from './Instruction.jsx';
 export default function Main({showThread, setShowThread}) {
   const dispatch = useDispatch();
   const threadId = useSelector(state => state.threadId);
+  const threads = useSelector(state => state.threads);
   const isLoggedIn = useSelector(state => state.isLoggedIn);
   const navigate = useNavigate();
   const [showInstructions, setShowInstructions] = useState(false);
-
   
 
   useEffect(() => {
@@ -25,10 +25,10 @@ export default function Main({showThread, setShowThread}) {
         "Content-Type": "application/json"
       }
       try {
-        const response = await axios.get("http://localhost:5000/user/validate-token", {headers});
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/user/validate-token`, {headers});
         if(response.status == 200) {
           //token is valid
-          const response = await axios.get("http://localhost:5000/threads", {headers});
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/threads`, {headers});
           if(response.status == 200) {
             const threads = response.data.threads;
             dispatch(setThreads(threads));
@@ -53,12 +53,11 @@ export default function Main({showThread, setShowThread}) {
       <div 
         onClick={() => setShowThread(false)}
         className='h-full w-full flex flex-col justify-between'>
-        {threadId ? <Chats/> : <Hero/>} 
+        {threadId ? <Chats/> : <Hero/>}
         <Input showInstructions={showInstructions} setShowInstructions={setShowInstructions} />      
       </div>
 
-      <Instruction showInstructions={showInstructions} className="w-40"/> 
-
+      <Instruction showInstructions={showInstructions} className="w-40"/>
     </div>
   )
 }

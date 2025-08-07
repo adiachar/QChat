@@ -50,6 +50,7 @@ export default function Chats() {
       }, 100);
 
     } else {
+      console.log(isNewThread.current);
       isNewThread.current = false;
     }
 

@@ -19,6 +19,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "autoprefixer": "^10.4.21",
     "axios": "^1.11.0",
+    "dotenv": "^17.2.1",
     "formik": "^2.4.6",
     "mongoose": "^8.16.5",
     "postcss": "^8.5.6",

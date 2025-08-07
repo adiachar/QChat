@@ -8,7 +8,6 @@ import SignUp from './components/sign/SignUp.jsx';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
-
 function App() {
   const [showThread, setShowThread] = useState(false);
   const [signIn, setSignIn] = useState(0);

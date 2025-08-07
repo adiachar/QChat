@@ -59,6 +59,6 @@ export const getThreadById = async (req, res) => {
 
 export const deleteThreadById = async (req, res) => {
     const {thread_id} = req.params;
-    const response = Thread.findByIdAndDelete(thread_id);
+    const response = await Thread.findByIdAndDelete(thread_id);
     return res.status(200).json({msg: "Thread Deleted!"});
 }

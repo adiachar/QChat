@@ -4,29 +4,7 @@ import mongoose from "mongoose";
 const initialState = {
     isStarted: false,
     isLoggedIn: false,
-    threads: {
-        "abc": {
-            title: "First Thread",
-            messages: [
-                {role: "user", content: "hello"},
-                {role: "assistant", content: "Hii! what can i help with you today"},
-                {role: "user", content: "tell me a joke"},
-                {role: "assistant", content: "sorry, can't tell jokes at this moment"},
-            ]
-        },
-        "abd": {
-            title: "Second Thread",
-            messages: [
-                {role: "user", content: "hello"}
-            ]
-        },
-        "abk": {
-            title: "third Thread",
-            messages: [
-                {role: "user", content: "hello"}
-            ]
-        }
-    },
+    threads: {},
     threadId: "",
     headers: {
         authorization: ""
@@ -59,7 +37,7 @@ const QchatSlice = createSlice({
         
         startNewThread: (state, action) => {           
             const newId = new mongoose.Types.ObjectId().toString();
-            state.threads[newId] = {title: "New Thread" , messages: [{role: "assistant", content: "What can I help you with today!"}]};
+            state.threads[newId] = {title: "New Thread" , messages: [{role: "assistant", content: "What can i help you with Today!"}]};
             state.threadId = newId;
         },
 
@@ -86,6 +64,11 @@ const QchatSlice = createSlice({
 
         setSelectedInstructionIdx: (state, action) => {
             state.selectedInstructionIdx = action.payload;
+        },
+
+        deleteThreadById: (state, action) => {
+            state.threadId = "";
+            delete state.threads[action.payload];
         }
     }
 });
@@ -99,5 +82,6 @@ export const {
     updateThread,
     addInstruction,
     setSelectedInstructionIdx,
+    deleteThreadById,
 } = QchatSlice.actions;
 export default QchatSlice.reducer;
