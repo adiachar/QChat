@@ -47,7 +47,7 @@ export default function Main({showThread, setShowThread}) {
         
       }
     }
-    // validateToken(localStorage.getItem("token"));
+    validateToken(localStorage.getItem("token"));
   }, []);
 
   return (
