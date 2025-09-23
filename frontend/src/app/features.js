@@ -43,7 +43,7 @@ const QchatSlice = createSlice({
         
         startNewThread: (state, action) => {           
             const newId = new mongoose.Types.ObjectId().toString();
-            state.threads[newId] = {title: "New Thread" , messages: [{role: "assistant", content: " "}]};
+            state.threads[newId] = {title: "New Thread" , messages: []};
             state.threadId = newId;
         },
 

@@ -10,36 +10,43 @@ export default function Chats() {
   const threads = useSelector(state => state.threads);
   const threadId = useSelector(state => state.threadId);
   const [messages, setMessages] = useState([]);
-  const [lastMessage, setLastMessage] = useState("");
+  const [lastMessage, setLastMessage] = useState({role: "", content: ""});
   const isNewThread = useRef(true);
   const lastMsgRef = useRef(null);
   const intervalRef = useRef(null);
 
   useEffect(() => {
+    isNewThread.current = true;
 
-    //if the user changes the threadId while previous interval is happenning, below code will clear that interval.
+    //If the user changes the threadId while previous interval is happenning, the below code block will clear that interval.
     if(intervalRef.current) {
       clearInterval(intervalRef.current);
     }
 
     let allMessages = threads[threadId].messages;
     let n = allMessages.length;
-
-    setMessages(allMessages.slice(0, n - 1));
-    setLastMessage(allMessages[n - 1].content);
-    isNewThread.current = true;
+    
+    if(allMessages[n - 1].role == "user") {
+      setMessages(allMessages);
+      setLastMessage({role: "assistant", content: ""});
+    }
+    else {
+      setMessages(allMessages.slice(0, n - 1));
+      setLastMessage(allMessages[n - 1]);
+    }
+    
   }, [threadId]);
 
   useEffect(() => {
 
     if(isNewThread.current == false) {
-      setLastMessage("");
 
       let allMessages = threads[threadId].messages;
       let n = allMessages.length;
 
       if(allMessages[n - 1].role == "user") {
         setMessages(allMessages);
+        setLastMessage({role: "ai", content: ""});
         return;
       }
 
@@ -49,7 +56,7 @@ export default function Chats() {
       let idx = 0;
 
       intervalRef.current = setInterval(() => {
-        setLastMessage(wordsArr.slice(0, idx).join(" "));   
+        setLastMessage({role: 'ai', content: wordsArr.slice(0, idx).join(" ")});   
         idx++;
         if(idx == wordsArr.length + 1) {
           clearInterval(intervalRef.current);
@@ -103,7 +110,7 @@ export default function Chats() {
           </div>
         ))
       }
-      {lastMessage ?
+      {lastMessage.content ? (lastMessage.role != 'user' ?
         <div className='w-full mb-10 lg:pl-10 flex flex-col'>
           <ReactMarkdown
             remarkPlugins={[remarkGmf]}
@@ -125,8 +132,15 @@ export default function Chats() {
                 <li className='mb-4' {...props} />
               ),
             }}
-          >{lastMessage}</ReactMarkdown>
-        </div> :
+          >{lastMessage.content}</ReactMarkdown> 
+        </div> : 
+
+        <div className='w-full mb-4 flex justify-end'>
+            <p 
+              style={{backgroundColor: "#0a0a23"}}
+              className='min-w-30 p-2 rounded-xl text-center'>{lastMessage.content}</p>
+        </div>) :
+
         <div className='loading lg:ml-10'>
 
         </div>}

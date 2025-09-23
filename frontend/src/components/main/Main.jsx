@@ -7,7 +7,6 @@ import Hero from './Hero.jsx';
 import Input from './Input.jsx';
 import Chats from "./Chats.jsx";
 import ThreadList from "./ThreadList.jsx";
-import Instruction from './Instruction.jsx';
 
 export default function Main({showThread, setShowThread}) {
   const dispatch = useDispatch();
@@ -59,7 +58,7 @@ export default function Main({showThread, setShowThread}) {
       <div 
         onClick={() => setShowThread(false)}
         className='h-full w-full flex flex-col justify-between relative'>
-        {(threadId && threads[threadId].messages.length > 1) ? <Chats/> : <Hero/>}
+        {(threadId && threads[threadId].messages.length > 0) ? <Chats/> : <Hero/>}
         <Input/>      
       </div>
     </div>
