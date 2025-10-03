@@ -11,7 +11,6 @@ export default function Navbar({setShowThread, setSignIn}) {
     const navigate = useNavigate();
     const count = useSelector(state => state.count);
     const isLoggedIn = useSelector(state => state.isLoggedIn);
-    const models = useSelector(state => state.models);
 
     return (
         <div 

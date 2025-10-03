@@ -43,7 +43,6 @@ export default function Main({showThread, setShowThread}) {
         }
       } catch(err) {
         navigate("/sign-in");
-        
       }
     }
     validateToken(localStorage.getItem("token"));
