@@ -2,7 +2,7 @@ import { useState } from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
-import { setHeader, setIsLogedIn } from "../../app/features";
+import { setHeader, setIsLogedIn, setUser } from "../../app/features";
 import axios from "axios";
 import { Button } from '@mui/material';
 
@@ -37,6 +37,7 @@ export default function SignUp() {
                     localStorage.setItem("token", token);  
                     dispatch(setHeader(token)); 
                     dispatch(setIsLogedIn(true)); 
+                    dispatch(setUser(res.data.user));
                     navigate("/");
                 }
             } catch (err) {

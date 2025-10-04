@@ -8,6 +8,6 @@ router.post("/sign-in", wrapAsync(signIn));
 
 router.post("/sign-up", wrapAsync(signUp));
 
-router.get("/validate-token", isSignedIn, (req, res) => res.status(200).json({msg: "Token is Valid!"}));
+router.get("/validate-token", isSignedIn, (req, res) => res.status(200).json({msg: "Token is Valid!", user: req.user}));
 
 export default router;

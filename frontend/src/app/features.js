@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 const initialState = {
     isLoggedIn: false,
+    user: null,
     threads: {},
     threadId: "",
     headers: {
@@ -18,6 +19,9 @@ const QchatSlice = createSlice({
     name: "QChatSlice",
     initialState: initialState,
     reducers: {
+        setUser: (state, action) => {
+            state.user = action.payload;
+        },
 
         setIsLogedIn: (state, action) => {
             state.isLoggedIn = action.payload;
@@ -80,6 +84,7 @@ const QchatSlice = createSlice({
 });
 
 export const {
+    setUser,
     setHeader, 
     setIsLogedIn,
     setThreads,

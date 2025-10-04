@@ -10,8 +10,8 @@ export const signIn = async (req, res) => {
     }
     const _id = user._id;
     const token = jwt.sign({_id: _id}, process.env.JWT_SECRET, {expiresIn: "1h"});
-        
-    return res.status(200).json({msg: "sign Ip Successfull!", token: token});
+    delete user.password;
+    return res.status(200).json({msg: "sign Ip Successfull!", token: token, user: user});
 }
 
 export const signUp = async (req, res) => {
@@ -30,6 +30,6 @@ export const signUp = async (req, res) => {
 
     const _id = user._id;
     const token = jwt.sign({_id: _id}, process.env.JWT_SECRET, {expiresIn: "1h"});
-        
-    return res.status(200).json({msg: "sign up Successfull!", token: token});
+    delete user.password;
+    return res.status(200).json({msg: "sign up Successfull!", token: token, user: user});
 }

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setHeader, setIsLogedIn, setModels, setThreads } from '../../app/features';
+import { setHeader, setIsLogedIn, setModels, setThreads, setUser } from '../../app/features';
 import {useNavigate} from "react-router-dom";
 import axios from 'axios';
 import Hero from './Hero.jsx';
@@ -25,7 +25,8 @@ export default function Main({showThread, setShowThread}) {
       try {
         const valTokenReq = await axios.get(`${import.meta.env.VITE_API_URL}/user/validate-token`, {headers});
         if(valTokenReq.status == 200) {
-          
+
+          dispatch(setUser(valTokenReq.data.user));
           const getModelsReq = await axios.get(`${import.meta.env.VITE_API_URL}/models`, {headers});
           if(getModelsReq.status == 200) {
             const models = getModelsReq.data.models;
@@ -39,6 +40,7 @@ export default function Main({showThread, setShowThread}) {
             dispatch(setThreads(threads));
             dispatch(setHeader(token));
             dispatch(setIsLogedIn(true));
+            
           }
         }
       } catch(err) {
